@@ -3,7 +3,7 @@ AWARE Plugin: Google Login
 
 This plugin allows researchers and users to personalise their AWARE experience with Google.
 
-[ ![Download](https://api.bintray.com/packages/denzilferreira/com.awareframework/com.aware.plugin.google.login/images/download.svg) ](https://bintray.com/denzilferreira/com.awareframework/com.aware.plugin.google.login/_latestVersion)
+[ ![Download](https://api.bintray.com/packages/denzilferreira/com.awareframework/com.aware.plugin.google.auth/images/download.svg) ](https://bintray.com/denzilferreira/com.awareframework/com.aware.plugin.google.auth/_latestVersion)
 
 # Settings
 Parameters adjusted on the dashboard and client:
@@ -15,7 +15,7 @@ Broadcasted when the user logs in successfully, with the following extras:
 - **google_account**: (ContentValues) users' profile information
     
 # Providers
-##  Locations Data
+##  Google Profile Data
 > content://com.aware.plugin.google.login.provider.google_login/plugin_google_login
 
 Field | Type | Description
