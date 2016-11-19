@@ -107,10 +107,10 @@ public class Plugin extends Aware_Plugin {
     public void onDestroy() {
         super.onDestroy();
 
-        notificationManager.cancel(GOOGLE_LOGIN_NOTIFICATION_ID);
+        if (notificationManager != null)
+            notificationManager.cancel(GOOGLE_LOGIN_NOTIFICATION_ID);
 
         Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, false);
-        Aware.stopPlugin(this, "com.aware.plugin.google.auth");
         Aware.stopAWARE();
     }
 
