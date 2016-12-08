@@ -155,11 +155,7 @@ public class SignInActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
-                signIn();
-                break;
-        }
+        if (v.getTag().equals("signIn")) signIn();
     }
 
     private class ProfileDownloader extends AsyncTask<GoogleSignInAccount, Void, Void> {
