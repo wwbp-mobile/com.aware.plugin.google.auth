@@ -111,7 +111,7 @@ public class Plugin extends Aware_Plugin {
             notificationManager.cancel(GOOGLE_LOGIN_NOTIFICATION_ID);
 
         Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, false);
-        Aware.stopAWARE();
+        Aware.stopAWARE(this);
     }
 
     private void showGoogleLoginPopup() {
