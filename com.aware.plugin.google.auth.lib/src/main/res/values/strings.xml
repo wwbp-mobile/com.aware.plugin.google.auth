@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">AWARE: Google Auth</string>
-    <string name="title_text">Google Authentication\nAWARE</string>
-    <string name="signed_out">Logged out</string>
-    <string name="noti_desc">Tap to login</string>
-</resources>
