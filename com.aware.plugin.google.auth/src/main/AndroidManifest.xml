@@ -9,6 +9,7 @@
 
         <service
             android:name="com.aware.plugin.google.auth.Plugin"
+            android:label="AWARE: Google Auth"
             android:exported="true" />
 
         <activity
