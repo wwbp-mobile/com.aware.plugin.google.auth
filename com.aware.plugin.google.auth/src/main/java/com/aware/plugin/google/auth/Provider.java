@@ -65,7 +65,7 @@ public class Provider extends ContentProvider {
     private static final int GOOGLE_ID = 2;
     private static UriMatcher sUriMatcher = null;
     private static HashMap<String, String> tableMap = null;
-    private static DatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
     private static SQLiteDatabase database;
 
     private void initialiseDatabase() {
@@ -90,8 +90,6 @@ public class Provider extends ContentProvider {
         tableMap.put(Google_Account.EMAIL, Google_Account.EMAIL);
         tableMap.put(Google_Account.PHONENUMBER, Google_Account.PHONENUMBER);
         tableMap.put(Google_Account.PICTURE, Google_Account.PICTURE);
-
-        initialiseDatabase();
 
         return true; //let Android know that the database is ready to be used.
     }
