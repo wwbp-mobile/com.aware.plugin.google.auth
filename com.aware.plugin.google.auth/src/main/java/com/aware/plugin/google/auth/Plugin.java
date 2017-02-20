@@ -60,8 +60,6 @@ public class Plugin extends Aware_Plugin {
             if (DEBUG)
                 Log.e(TAG, "Google Services APIs are not available on this device");
         }
-
-        Aware.startPlugin(this, "com.aware.plugin.google.auth");
     }
 
     private boolean is_google_services_available() {
