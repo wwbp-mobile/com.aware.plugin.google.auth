@@ -7,16 +7,13 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
-import com.aware.ui.PermissionsHandler;
 import com.aware.utils.Aware_Plugin;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -31,6 +28,8 @@ public class Plugin extends Aware_Plugin {
 
     private static final int GOOGLE_LOGIN_NOTIFICATION_ID = 5675687;
     private NotificationManager notificationManager;
+
+    private Intent aware;
 
     @Override
     public void onCreate() {
@@ -61,7 +60,8 @@ public class Plugin extends Aware_Plugin {
                 Log.e(TAG, "Google Services APIs are not available on this device");
         }
 
-        Aware.startAWARE(this);
+        aware = new Intent(this, Aware.class);
+        startService(aware);
     }
 
     private boolean is_google_services_available() {
@@ -100,7 +100,8 @@ public class Plugin extends Aware_Plugin {
             notificationManager.cancel(GOOGLE_LOGIN_NOTIFICATION_ID);
 
         Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, false);
-        Aware.stopAWARE(this);
+
+        stopService(aware);
     }
 
     private void showGoogleLoginPopup() {
