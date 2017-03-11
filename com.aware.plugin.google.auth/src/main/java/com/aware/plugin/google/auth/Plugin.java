@@ -71,9 +71,6 @@ public class Plugin extends Aware_Plugin {
         super.onStartCommand(intent, flags, startId);
 
         if (PERMISSIONS_OK) {
-
-            PluginsManager.enablePlugin(this, "com.aware.plugin.google.auth");
-
             DEBUG = Aware.getSetting(this, Aware_Preferences.DEBUG_FLAG).equals("true");
 
             String[] projection = new String[]{Provider.Google_Account.EMAIL, Provider.Google_Account.NAME};
@@ -85,6 +82,7 @@ public class Plugin extends Aware_Plugin {
 
             Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, true);
 
+            Aware.startPlugin(this, "com.aware.plugin.google.auth");
             Aware.startAWARE(this);
         }
 
