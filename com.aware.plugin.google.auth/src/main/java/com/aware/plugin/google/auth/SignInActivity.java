@@ -155,11 +155,7 @@ public class SignInActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
-                signIn();
-                break;
-        }
+        if (v.getTag().equals("signIn")) signIn();
     }
 
     private class ProfileDownloader extends AsyncTask<GoogleSignInAccount, Void, Void> {
@@ -203,8 +199,8 @@ public class SignInActivity extends AppCompatActivity implements
             }
             getContentResolver().insert(Provider.Google_Account.CONTENT_URI, row);
 
-            if (Plugin.DEBUG)
-                Log.d(Plugin.TAG, "Google Account: " + row.toString());
+            if (Aware.DEBUG)
+                Log.d(Aware.TAG, "Google Account: " + row.toString());
 
             Plugin.accountDetails = row;
             if (Plugin.contextProducer != null) Plugin.contextProducer.onContext();

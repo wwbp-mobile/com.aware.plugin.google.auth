@@ -7,16 +7,13 @@ import android.app.PendingIntent;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
-import com.aware.ui.PermissionsHandler;
 import com.aware.utils.Aware_Plugin;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -57,11 +54,9 @@ public class Plugin extends Aware_Plugin {
         REQUIRED_PERMISSIONS.add(Manifest.permission.READ_PHONE_STATE);
 
         if (!is_google_services_available()) {
-            if (DEBUG)
-                Log.e(TAG, "Google Services APIs are not available on this device");
+            if (DEBUG) Log.e(TAG, "Google Services APIs are not available on this device");
+            stopSelf();
         }
-
-        Aware.startPlugin(this, "com.aware.plugin.google.auth");
     }
 
     private boolean is_google_services_available() {
@@ -72,16 +67,9 @@ public class Plugin extends Aware_Plugin {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        boolean permissions_ok = true;
-        for (String p : REQUIRED_PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED) {
-                permissions_ok = false;
-                break;
-            }
-        }
+        super.onStartCommand(intent, flags, startId);
 
-        if (permissions_ok) {
-
+        if (PERMISSIONS_OK) {
             DEBUG = Aware.getSetting(this, Aware_Preferences.DEBUG_FLAG).equals("true");
 
             String[] projection = new String[]{Provider.Google_Account.EMAIL, Provider.Google_Account.NAME};
@@ -93,14 +81,11 @@ public class Plugin extends Aware_Plugin {
 
             Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, true);
 
-        } else {
-            Intent permissions = new Intent(this, PermissionsHandler.class);
-            permissions.putExtra(PermissionsHandler.EXTRA_REQUIRED_PERMISSIONS, REQUIRED_PERMISSIONS);
-            permissions.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(permissions);
+            Aware.startPlugin(this, "com.aware.plugin.google.auth");
+            Aware.startAWARE(this);
         }
 
-        return super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
     }
 
     @Override
@@ -111,7 +96,8 @@ public class Plugin extends Aware_Plugin {
             notificationManager.cancel(GOOGLE_LOGIN_NOTIFICATION_ID);
 
         Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, false);
-        Aware.stopAWARE();
+
+        Aware.stopAWARE(this);
     }
 
     private void showGoogleLoginPopup() {
