@@ -15,7 +15,6 @@ import android.util.Log;
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
 import com.aware.utils.Aware_Plugin;
-import com.aware.utils.PluginsManager;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -55,8 +54,8 @@ public class Plugin extends Aware_Plugin {
         REQUIRED_PERMISSIONS.add(Manifest.permission.READ_PHONE_STATE);
 
         if (!is_google_services_available()) {
-            if (DEBUG)
-                Log.e(TAG, "Google Services APIs are not available on this device");
+            if (DEBUG) Log.e(TAG, "Google Services APIs are not available on this device");
+            stopSelf();
         }
     }
 

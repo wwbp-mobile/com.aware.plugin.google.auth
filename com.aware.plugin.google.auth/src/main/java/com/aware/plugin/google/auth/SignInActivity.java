@@ -199,8 +199,8 @@ public class SignInActivity extends AppCompatActivity implements
             }
             getContentResolver().insert(Provider.Google_Account.CONTENT_URI, row);
 
-            if (Plugin.DEBUG)
-                Log.d(Plugin.TAG, "Google Account: " + row.toString());
+            if (Aware.DEBUG)
+                Log.d(Aware.TAG, "Google Account: " + row.toString());
 
             Plugin.accountDetails = row;
             if (Plugin.contextProducer != null) Plugin.contextProducer.onContext();
