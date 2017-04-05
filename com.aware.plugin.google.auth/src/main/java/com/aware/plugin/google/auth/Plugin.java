@@ -81,7 +81,6 @@ public class Plugin extends Aware_Plugin {
 
             Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, true);
 
-            Aware.startPlugin(this, "com.aware.plugin.google.auth");
             Aware.startAWARE(this);
         }
 
