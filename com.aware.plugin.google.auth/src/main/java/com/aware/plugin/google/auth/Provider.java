@@ -134,7 +134,7 @@ public class Provider extends ContentProvider {
 
     @Nullable
     @Override
-    public Uri insert(Uri uri, ContentValues new_values) {
+    public synchronized Uri insert(Uri uri, ContentValues new_values) {
         initialiseDatabase();
 
         ContentValues values = (new_values != null) ? new ContentValues(new_values) : new ContentValues();
@@ -160,7 +160,7 @@ public class Provider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String selection, String[] selectionArgs) {
+    public synchronized int delete(Uri uri, String selection, String[] selectionArgs) {
         initialiseDatabase();
 
         database.beginTransaction();
@@ -181,7 +181,7 @@ public class Provider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
+    public synchronized int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         initialiseDatabase();
 
         database.beginTransaction();
