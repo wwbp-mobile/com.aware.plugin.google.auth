@@ -17,7 +17,6 @@ import android.util.Log;
 import com.aware.Aware;
 import com.aware.utils.DatabaseHelper;
 
-import java.io.File;
 import java.util.HashMap;
 
 /**
@@ -73,6 +72,15 @@ public class Provider extends ContentProvider {
             dbHelper = new DatabaseHelper(getContext(), DATABASE_NAME, null, DATABASE_VERSION, DATABASE_TABLES, TABLES_FIELDS);
         if (database == null)
             database = dbHelper.getWritableDatabase();
+    }
+
+    /**
+     * Returns the provider authority that is dynamic
+     * @return
+     */
+    public static String getAuthority(Context context) {
+        AUTHORITY = context.getPackageName() + ".provider.google_login";
+        return AUTHORITY;
     }
 
     @Override

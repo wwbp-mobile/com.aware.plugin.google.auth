@@ -3,4 +3,5 @@
     <string name="title_text">Google Authentication\nAWARE</string>
     <string name="signed_out">Logged out</string>
     <string name="noti_desc">Tap to login</string>
+    <string name="plugin_google_authentication">Plugin: Google Authentication</string>
 </resources>
