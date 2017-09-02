@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -48,10 +47,6 @@ public class Plugin extends Aware_Plugin {
             }
         };
         contextProducer = CONTEXT_PRODUCER;
-
-        DATABASE_TABLES = Provider.DATABASE_TABLES;
-        TABLES_FIELDS = Provider.TABLES_FIELDS;
-        CONTEXT_URIS = new Uri[]{Provider.Google_Account.CONTENT_URI};
 
         REQUIRED_PERMISSIONS.add(Manifest.permission.READ_PHONE_STATE);
 
