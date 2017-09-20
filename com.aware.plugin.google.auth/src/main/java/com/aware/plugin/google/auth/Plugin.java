@@ -34,6 +34,8 @@ public class Plugin extends Aware_Plugin {
     public void onCreate() {
         super.onCreate();
 
+        AUTHORITY = Provider.getAuthority(this);
+
         TAG = "AWARE: Google Login";
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
