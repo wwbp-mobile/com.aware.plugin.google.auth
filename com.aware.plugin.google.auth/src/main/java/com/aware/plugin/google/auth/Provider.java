@@ -156,7 +156,7 @@ public class Provider extends ContentProvider {
                 database.endTransaction();
                 if (_id > 0) {
                     Uri dataUri = ContentUris.withAppendedId(Google_Account.CONTENT_URI, _id);
-                    getContext().getContentResolver().notifyChange(dataUri, null);
+                    getContext().getContentResolver().notifyChange(dataUri, null, false);
                     return dataUri;
                 }
                 database.endTransaction();
@@ -184,7 +184,7 @@ public class Provider extends ContentProvider {
         }
         database.setTransactionSuccessful();
         database.endTransaction();
-        getContext().getContentResolver().notifyChange(uri, null);
+        getContext().getContentResolver().notifyChange(uri, null, false);
         return count;
     }
 
@@ -205,7 +205,7 @@ public class Provider extends ContentProvider {
         }
         database.setTransactionSuccessful();
         database.endTransaction();
-        getContext().getContentResolver().notifyChange(uri, null);
+        getContext().getContentResolver().notifyChange(uri, null, false);
         return count;
     }
 }
