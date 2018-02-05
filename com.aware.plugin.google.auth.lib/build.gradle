@@ -5,13 +5,12 @@ android {
     buildToolsVersion build_tools
 
     defaultConfig {
-//        applicationId "com.aware.plugin.google.auth"
         minSdkVersion minimum_sdk
         targetSdkVersion target_sdk
         versionCode version_code
         versionName version_readable
 
-        resValue "string", "provider_google_login", applicationId + ".provider.google_login"
+        resValue "string", "provider_google_login", "com.aware.plugin.google.auth.provider.google_login"
     }
 
     signingConfigs {

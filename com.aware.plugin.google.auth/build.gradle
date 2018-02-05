@@ -12,7 +12,7 @@ android {
         versionCode version_code
         versionName version_readable
 
-        resValue "string", "provider_google_login", applicationId + ".provider.google_login"
+        resValue "string", "provider_google_login", android.defaultConfig.applicationId + ".provider.google_login"
     }
 
     signingConfigs {
