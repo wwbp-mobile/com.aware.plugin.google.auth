@@ -30,6 +30,7 @@
             android:label="@string/plugin_google_authentication"
             android:authorities="${applicationId}.provider.google_login"
             android:exported="true"
+            android:syncable="true"
             android:readPermission="com.aware.READ_CONTEXT_DATA"
             android:writePermission="com.aware.WRITE_CONTEXT_DATA" />
 
