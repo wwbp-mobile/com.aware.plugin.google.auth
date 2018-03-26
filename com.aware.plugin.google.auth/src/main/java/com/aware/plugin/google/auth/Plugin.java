@@ -1,14 +1,17 @@
 package com.aware.plugin.google.auth;
 
 import android.Manifest;
+import android.accounts.Account;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SyncRequest;
 import android.database.Cursor;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
@@ -33,6 +36,8 @@ public class Plugin extends Aware_Plugin {
     public void onCreate() {
         super.onCreate();
 
+        AUTHORITY = Provider.getAuthority(this);
+
         TAG = "AWARE: Google Login";
 
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -46,10 +51,6 @@ public class Plugin extends Aware_Plugin {
             }
         };
         contextProducer = CONTEXT_PRODUCER;
-
-        DATABASE_TABLES = Provider.DATABASE_TABLES;
-        TABLES_FIELDS = Provider.TABLES_FIELDS;
-        CONTEXT_URIS = new Uri[]{Provider.Google_Account.CONTENT_URI};
 
         REQUIRED_PERMISSIONS.add(Manifest.permission.READ_PHONE_STATE);
 
@@ -81,6 +82,20 @@ public class Plugin extends Aware_Plugin {
 
             Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, true);
 
+            if (Aware.isStudy(this)) {
+                Account aware_account = Aware.getAWAREAccount(getApplicationContext());
+                String authority = Provider.getAuthority(getApplicationContext());
+                long frequency = Long.parseLong(Aware.getSetting(this, Aware_Preferences.FREQUENCY_WEBSERVICE)) * 60;
+
+                ContentResolver.setIsSyncable(aware_account, authority, 1);
+                ContentResolver.setSyncAutomatically(aware_account, authority, true);
+                SyncRequest request = new SyncRequest.Builder()
+                        .syncPeriodic(frequency, frequency / 3)
+                        .setSyncAdapter(aware_account, authority)
+                        .setExtras(new Bundle()).build();
+                ContentResolver.requestSync(request);
+            }
+
             Aware.startAWARE(this);
         }
 
@@ -90,6 +105,13 @@ public class Plugin extends Aware_Plugin {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        ContentResolver.setSyncAutomatically(Aware.getAWAREAccount(this), Provider.getAuthority(this), false);
+        ContentResolver.removePeriodicSync(
+                Aware.getAWAREAccount(this),
+                Provider.getAuthority(this),
+                Bundle.EMPTY
+        );
 
         if (notificationManager != null)
             notificationManager.cancel(GOOGLE_LOGIN_NOTIFICATION_ID);

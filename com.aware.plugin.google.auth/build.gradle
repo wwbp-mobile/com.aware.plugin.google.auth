@@ -2,15 +2,17 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion compile_sdk
+    buildToolsVersion build_tools
 
     defaultConfig {
         applicationId "com.aware.plugin.google.auth"
-        minSdkVersion 11
-        targetSdkVersion 25
+        minSdkVersion minimum_sdk
+        targetSdkVersion target_sdk
         versionCode version_code
         versionName version_readable
+
+        resValue "string", "provider_google_login", android.defaultConfig.applicationId + ".provider.google_login"
     }
 
     signingConfigs {
@@ -49,12 +51,8 @@ configurations.all {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:$support_libs"
-    compile "com.android.support:gridlayout-v7:$support_libs"
-    compile "com.github.denzilferreira:aware-client:$aware_libs"
-    compile "com.google.android.gms:play-services-auth:$google_libs"
-    compile "com.android.support:cardview-v7:$support_libs"
+    api "com.github.denzilferreira:aware-client:$aware_libs"
+    implementation "com.google.android.gms:play-services-auth:$google_libs"
 }
 
 apply plugin: 'com.google.gms.google-services'
