@@ -1,9 +1,8 @@
 AWARE Plugin: Google Login
 ===================================
+[![Release](https://jitpack.io/v/denzilferreira/com.aware.plugin.google.auth.svg)](https://jitpack.io/#denzilferreira/com.aware.plugin.google.auth)
 
 This plugin allows researchers and users to personalise their AWARE experience with Google.
-
-[ ![Download](https://api.bintray.com/packages/denzilferreira/com.awareframework/com.aware.plugin.google.auth/images/download.svg) ](https://bintray.com/denzilferreira/com.awareframework/com.aware.plugin.google.auth/_latestVersion)
 
 # Settings
 Parameters adjusted on the dashboard and client:
