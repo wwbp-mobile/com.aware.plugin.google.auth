@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SyncRequest;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -95,8 +96,6 @@ public class Plugin extends Aware_Plugin {
                         .setExtras(new Bundle()).build();
                 ContentResolver.requestSync(request);
             }
-
-            Aware.startAWARE(this);
         }
 
         return START_STICKY;
@@ -117,8 +116,6 @@ public class Plugin extends Aware_Plugin {
             notificationManager.cancel(GOOGLE_LOGIN_NOTIFICATION_ID);
 
         Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, false);
-
-        Aware.stopAWARE(this);
     }
 
     private void showGoogleLoginPopup() {
@@ -127,12 +124,16 @@ public class Plugin extends Aware_Plugin {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, Aware.AWARE_NOTIFICATION_ID)
                 .setSmallIcon(R.drawable.ic_app_notification)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.noti_desc))
                 .setAutoCancel(true)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            notificationBuilder.setChannelId(Aware.AWARE_NOTIFICATION_ID);
 
         Notification notification = notificationBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR;
