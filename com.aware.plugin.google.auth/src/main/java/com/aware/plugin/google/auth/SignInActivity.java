@@ -1,5 +1,6 @@
 package com.aware.plugin.google.auth;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,16 +52,37 @@ public class SignInActivity extends AppCompatActivity implements
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
-    private TextView mStatusTextView;
+    private TextView mStatusTextView, mTitleText;
     private ProgressDialog mProgressDialog;
+    private Button mCancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mStatusTextView = (TextView) findViewById(R.id.status);
+        mStatusTextView = findViewById(R.id.status);
+
+        mTitleText = findViewById(R.id.title_text);
+        mTitleText.setText(String.format(getResources().getString(R.string.title_text), getApplicationContext().getApplicationInfo().nonLocalizedLabel));
+
         findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+        mCancel = findViewById(R.id.cancel_login);
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ContentValues row = new ContentValues();
+                row.put(Provider.Google_Account.TIMESTAMP, System.currentTimeMillis());
+                row.put(Provider.Google_Account.DEVICE_ID, Aware.getSetting(getApplicationContext(), Aware_Preferences.DEVICE_ID));
+                row.put(Provider.Google_Account.NAME, "NOT-PROVIDED");
+                row.put(Provider.Google_Account.EMAIL, "NOT-PROVIDED");
+                row.put(Provider.Google_Account.PHONENUMBER, "NOT-PROVIDED");
+                row.put(Provider.Google_Account.PICTURE, new ByteArrayOutputStream().toByteArray());
+                getContentResolver().insert(Provider.Google_Account.CONTENT_URI, row);
+                finish();
+            }
+        });
 
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.READ_PHONE_STATE}, REQUEST_CODE_PERMISSON_READ_PHONENUMBER);
     }
@@ -184,7 +207,10 @@ public class SignInActivity extends AppCompatActivity implements
             super.onPostExecute(aVoid);
 
             TelephonyManager telephonyManager = (TelephonyManager) getApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
-            String mPhoneNumber = telephonyManager.getLine1Number();
+            String mPhoneNumber = "";
+
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+                mPhoneNumber = telephonyManager.getLine1Number();
 
             ContentValues row = new ContentValues();
             row.put(Provider.Google_Account.TIMESTAMP, System.currentTimeMillis());
