@@ -20,7 +20,7 @@ import com.aware.utils.IContextCard;
 
 public class ContextCard implements IContextCard {
 
-    //Empty constructor used to instantiate this card
+    //Empty constructor used to instantiate this card_google_login
     public ContextCard(){}
 
     //You may use sContext on uiChanger to do queries to databases, etc.
@@ -35,14 +35,14 @@ public class ContextCard implements IContextCard {
     public View getContextCard(Context context) {
         sContext = context;
 
-        //Load card information to memory
+        //Load card_google_login information to memory
         LayoutInflater sInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        card = sInflater.inflate(R.layout.card, null);
+        card = sInflater.inflate(R.layout.card_google_login, null);
 
-        //Initialize UI elements from the card
-        photo = (ImageView) card.findViewById(R.id.photo);
-        name = (TextView) card.findViewById(R.id.name);
-        email = (TextView) card.findViewById(R.id.email);
+        //Initialize UI elements from the card_google_login
+        photo = (ImageView) card.findViewById(R.id.google_photo);
+        name = (TextView) card.findViewById(R.id.google_name);
+        email = (TextView) card.findViewById(R.id.google_email);
 
         Cursor account_info = sContext.getContentResolver().query(Provider.Google_Account.CONTENT_URI, null, null, null, null);
         if( account_info != null && account_info.moveToFirst() ) {
@@ -52,7 +52,7 @@ public class ContextCard implements IContextCard {
         }
         if( account_info != null && ! account_info.isClosed() ) account_info.close();
 
-        //Return the card to AWARE/apps
+        //Return the card_google_login to AWARE/apps
         return card;
     }
 

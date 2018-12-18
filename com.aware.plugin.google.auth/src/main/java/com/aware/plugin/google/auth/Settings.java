@@ -16,7 +16,7 @@ import com.google.android.gms.common.api.Scope;
 
 public class Settings extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-    //Plugin settings in XML @xml/preferences
+    //Plugin settings in XML @xml/preferences_google_auth
     public static final String STATUS_PLUGIN_GOOGLE_LOGIN = "status_plugin_google_login";
 
     //Plugin settings UI elements
@@ -25,7 +25,7 @@ public class Settings extends PreferenceActivity implements SharedPreferences.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+        addPreferencesFromResource(R.xml.preferences_google_auth);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
     }
