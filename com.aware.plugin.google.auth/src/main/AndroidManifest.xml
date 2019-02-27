@@ -13,6 +13,7 @@
 
         <activity
             android:name="com.aware.plugin.google.auth.Settings"
+            android:label="AWARE: Google Auth"
             android:exported="true" />
 
         <activity

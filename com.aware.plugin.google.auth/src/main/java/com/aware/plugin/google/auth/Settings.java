@@ -8,13 +8,14 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import com.aware.Aware;
+import com.aware.ui.AppCompatPreferenceActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Scope;
 
-public class Settings extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class Settings extends AppCompatPreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     //Plugin settings in XML @xml/preferences_google_auth
     public static final String STATUS_PLUGIN_GOOGLE_LOGIN = "status_plugin_google_login";
