@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">AWARE: Google Auth</string>
-    <string name="title_text">Google Authentication\n%1$s</string>
+    <string name="title_text">Google Authentication</string>
     <string name="signed_out">Logged out</string>
     <string name="noti_desc">Tap to login</string>
     <string name="plugin_google_authentication">Plugin: Google Authentication</string>
