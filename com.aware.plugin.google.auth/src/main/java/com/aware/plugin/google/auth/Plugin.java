@@ -119,7 +119,7 @@ public class Plugin extends Aware_Plugin {
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, Aware.AWARE_NOTIFICATION_ID)
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, Aware.AWARE_NOTIFICATION_CHANNEL_GENERAL)
                 .setSmallIcon(R.drawable.ic_app_notification)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText(getString(R.string.noti_desc))
@@ -127,8 +127,10 @@ public class Plugin extends Aware_Plugin {
                 .setContentIntent(pendingIntent)
                 .setPriority(NotificationCompat.PRIORITY_HIGH);
 
+        notificationBuilder = Aware.setNotificationProperties(notificationBuilder, Aware.AWARE_NOTIFICATION_IMPORTANCE_GENERAL);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-            notificationBuilder.setChannelId(Aware.AWARE_NOTIFICATION_ID);
+            notificationBuilder.setChannelId(Aware.AWARE_NOTIFICATION_CHANNEL_GENERAL);
 
         Notification notification = notificationBuilder.build();
         notification.flags |= Notification.FLAG_NO_CLEAR;
