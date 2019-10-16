@@ -69,14 +69,21 @@ public class Plugin extends Aware_Plugin {
         if (PERMISSIONS_OK) {
             DEBUG = Aware.getSetting(this, Aware_Preferences.DEBUG_FLAG).equals("true");
 
+            if (Aware.getSetting(getApplicationContext(), Settings.STATUS_PLUGIN_GOOGLE_LOGIN).length() == 0) {
+                Aware.setSetting(getApplicationContext(), Settings.STATUS_PLUGIN_GOOGLE_LOGIN, true);
+            } else {
+                if (Aware.getSetting(getApplicationContext(), Settings.STATUS_PLUGIN_GOOGLE_LOGIN).equalsIgnoreCase("false")) {
+                    Aware.stopPlugin(getApplicationContext(), getPackageName());
+                    return START_STICKY;
+                }
+            }
+
             String[] projection = new String[]{Provider.Google_Account.EMAIL, Provider.Google_Account.NAME};
             Cursor cursor = getContentResolver().query(Provider.Google_Account.CONTENT_URI, projection, null, null, null);
             if (cursor != null && !cursor.moveToLast()) {
                 showGoogleLoginPopup();
                 cursor.close();
             }
-
-            Aware.setSetting(this, Settings.STATUS_PLUGIN_GOOGLE_LOGIN, true);
 
             if (Aware.isStudy(this)) {
                 Account aware_account = Aware.getAWAREAccount(getApplicationContext());
