@@ -48,7 +48,7 @@ public class Plugin extends Aware_Plugin {
         };
         contextProducer = CONTEXT_PRODUCER;
 
-        REQUIRED_PERMISSIONS.add(Manifest.permission.READ_PHONE_STATE);
+        //REQUIRED_PERMISSIONS.add(Manifest.permission.READ_PHONE_STATE);
 
         if (!is_google_services_available()) {
             if (DEBUG) Log.e(TAG, "Google Services APIs are not available on this device");
